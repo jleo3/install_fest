@@ -27,19 +27,20 @@ install_rails() {
 }
 
 config_git() {
-  read -p "What is your GitHub username? (If you don't have one, now's a great time to come up with one!") username
-  git config --global user.name "{$username}"
+  echo "What is your GitHub username? (If you don't have one, now's a great time to come up with one!)"
+  read username
+  git config --global user.name "$username"
 
-  read -p "What is your GitHub email?" email
-  git config --global user.email "{$email}"
+  echo "What is your GitHub email?" email
+  read email
+  git config --global user.email "$email"
+
+  echo "OK, I've set up your git config"
 }
 
 OS=`lowercase \`uname\``
 
-if [[ $OS == "windowsnt" ]]; then
-  echo "Here's a quarter. Go get yourself a real OS"
-
-elif [[ $OS == "darwin" ]]; then
+if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
 
   install_ruby
