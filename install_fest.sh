@@ -26,6 +26,14 @@ install_rails() {
   echo "...done"
 }
 
+config_git() {
+  read -p "What is your GitHub username? (If you don't have one, now's a great time to come up with one!") username
+  git config --global user.name "{$username}"
+
+  read -p "What is your GitHub email?" email
+  git config --global user.email "{$email}"
+}
+
 OS=`lowercase \`uname\``
 
 if [[ $OS == "windowsnt" ]]; then
@@ -44,6 +52,7 @@ elif [[ $OS == "darwin" ]]; then
 
   echo "Installing git..."
   brew install git
+  config_git
   echo "...done"
 
   install_bundler
@@ -68,6 +77,7 @@ elif [[ $OS == "linux" ]]; then
 
   echo "Installing git..."
   sudo apt-get install -y build-essential git-core
+  config_git
   echo "...done"
 
   install_bundler
@@ -81,5 +91,4 @@ elif [[ $OS == "linux" ]]; then
   echo "...done"
 
   # Set environment variable for sublime text
-  # set git username, email
 fi
