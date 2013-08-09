@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 lowercase(){
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
@@ -13,8 +15,14 @@ install_bundler() {
 install_ruby() {
   echo "Installing Ruby..."
   curl -L https://get.rvm.io | bash -s stable --ruby
-  source ~/.bashrc
+  source /home/vagrant/.rvm/scripts/rvm
   rvm use 2.0.0 --default
+  echo "...done"
+}
+
+install_rails() {
+  echo "Installing rails..."
+  gem install -v 4.0.0 rails
   echo "...done"
 }
 
@@ -40,9 +48,7 @@ elif [[ $OS == "darwin" ]]; then
 
   install_bundler
 
-  echo "Installing rails..."
-  gem install -v 4.0.0 rails
-  echo "...done"
+  install_rails
 
   echo "Downloading and installing SublimeText"
   cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.dmg
@@ -55,13 +61,13 @@ elif [[ $OS == "linux" ]]; then
   echo "Ah, classy operating system!"
 
   echo "First, you'll need curl..."
-  sudo apt-get install curl
+  sudo apt-get install -y curl
   echo "...done"
 
   install_ruby
 
   echo "Installing git..."
-  sudo apt-get install build-essential git-core
+  sudo apt-get install -y build-essential git-core
   echo "...done"
 
   install_bundler
@@ -74,7 +80,6 @@ elif [[ $OS == "linux" ]]; then
   tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
   echo "...done"
 
-  # Set env
+  # Set environment variable for sublime text
+  # set git username, email
 fi
-
-
