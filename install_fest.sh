@@ -26,13 +26,26 @@ install_rails() {
   echo "...done"
 }
 
-symlink_subl() {
+subl_to_path() {
   echo "Adding Sublime Text to your PATH..."
   mv ~/ga/lib/Sublime\ Text\ 2/ ~/ga/lib/sublime_text
   mv ~/ga/lib/sublime_text/sublime_text ~/ga/lib/sublime_text/subl
   echo "PATH=$PATH:$HOME/ga/lib/sublime_text" >> ~/$1
 
   echo "...done"
+}
+
+check_install() {
+  echo "Installation is complete. Check that everything works:"
+  echo "  1. Open a new command line (don't use this one)."
+  echo "  2. Type 'rvm -v'"
+  echo "     - you should see version 1.0.0 or higher"
+  echo "  3. Type 'ruby -v'"
+  echo "     - you should see version 2.0.0"
+  echo "  4. Type 'subl foo'"
+  echo "     - Sublime Text editor should open up"
+  echo ""
+  echo "If everything worked then you are set for BEWD! Go forth and program!"
 }
 
 config_git() {
@@ -76,9 +89,9 @@ if [[ $OS == "darwin" ]]; then
   sudo hdiutil detach /tmp/Sublime\ Text\ 2.0.2.dmg
   echo "...done"
 
-  symlink_subl .bash_profile
+  subl_to_path .bash_profile
 
-  echo "You are set for BEWD! Go forth and program!"
+  check_install
 
 elif [[ $OS == "linux" ]]; then
   echo "Ah, classy operating system!"
@@ -104,6 +117,8 @@ elif [[ $OS == "linux" ]]; then
   tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
   echo "...done"
 
-  symlink_subl .bashrc
+  subl_to_path .bashrc
+
+  check_install
   echo "You are set for BEWD! Go forth and program!"
 fi
