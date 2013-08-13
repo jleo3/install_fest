@@ -15,7 +15,7 @@ install_bundler() {
 install_ruby() {
   echo "Installing Ruby..."
   curl -L https://get.rvm.io | bash -s stable --ruby
-  source /home/vagrant/.rvm/scripts/rvm
+  source $HOME/.rvm/scripts/rvm
   rvm use 2.0.0 --default
   echo "...done"
 }
@@ -23,6 +23,15 @@ install_ruby() {
 install_rails() {
   echo "Installing rails..."
   gem install -v 4.0.0 rails
+  echo "...done"
+}
+
+symlink_subl() {
+  echo "Adding Sublime Text to your PATH..."
+  mv ~/ga/lib/Sublime\ Text\ 2/ ~/ga/lib/sublime_text
+  mv ~/ga/lib/sublime_text/sublime_text ~/ga/lib/sublime_text/subl
+  echo "PATH=$PATH:$HOME/ga/lib/sublime_text" >> ~/$1
+
   echo "...done"
 }
 
@@ -67,10 +76,14 @@ if [[ $OS == "darwin" ]]; then
   sudo hdiutil detach /tmp/Sublime\ Text\ 2.0.2.dmg
   echo "...done"
 
+  symlink_subl .bash_profile
+
+  echo "You are set for BEWD! Go forth and program!"
+
 elif [[ $OS == "linux" ]]; then
   echo "Ah, classy operating system!"
 
-  echo "First, you'll need curl..."
+  echo "Installing curl..."
   sudo apt-get install -y curl
   echo "...done"
 
@@ -91,5 +104,6 @@ elif [[ $OS == "linux" ]]; then
   tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
   echo "...done"
 
-  # Set environment variable for sublime text
+  symlink_subl .bashrc
+  echo "You are set for BEWD! Go forth and program!"
 fi
