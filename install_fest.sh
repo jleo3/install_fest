@@ -2,8 +2,31 @@
 
 set -e
 
+GA_LIB = "~/ga/lib"
+
 lowercase(){
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+install_mac_tools() {
+  VERSION=`sw_vers -productVersion`
+  SNOW_LEOPARD=10.6
+  LION=10.7
+  MOUNTAIN_LION=10.8
+  GCC_6 = "GCC-10.6.pkg"
+  GCC_7 = "GCC_10.7.pkg"
+
+  if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
+    echo "version is 10.6"
+    curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
+    sudo installer -pkg /tmp/$GCC_6 -target $GA_LIB
+  elif [[ $VERSION == *"$LION"* || $VERSION == *"$MOUNTAIN_LION"* ]]; then
+    echo "version is 10.7 or 10.8"
+    curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -O
+    sudo installer -pkg /tmp/$GCC_7 -target $GA_LIB
+  else
+    echo "could not find supported version for command line tools"
+  fi
 }
 
 install_bundler() {
@@ -66,8 +89,14 @@ config_git() {
 
 OS=`lowercase \`uname\``
 
+echo "creating a directory for ga tools at ~/ga/lib"
+mkdir -p $GA_LIB
+
 if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
+
+  install_mac_tools
+  exit
 
   install_ruby
 
@@ -117,7 +146,6 @@ elif [[ $OS == "linux" ]]; then
 
   echo "Downloading and installing SublimeText"
   cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.tar.bz2
-  mkdir -p ~/ga/lib
   tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
   echo "...done"
 
