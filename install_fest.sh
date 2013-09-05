@@ -14,6 +14,7 @@ install_mac_tools() {
   GCC_6="GCC-10.6.pkg"
   GCC_7="GCC_10.7.pkg"
 
+  cd /tmp/
   if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
     echo "version is 10.6"
     curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
