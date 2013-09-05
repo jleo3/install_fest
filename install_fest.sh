@@ -94,7 +94,7 @@ mkdir -p $GA_LIB
 if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
 
-  #install_mac_tools
+  install_mac_tools
 
   install_ruby
 
