@@ -2,8 +2,6 @@
 
 set -e
 
-GA_LIB = "~/ga/lib"
-
 lowercase(){
   echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
@@ -13,8 +11,8 @@ install_mac_tools() {
   SNOW_LEOPARD=10.6
   LION=10.7
   MOUNTAIN_LION=10.8
-  GCC_6 = "GCC-10.6.pkg"
-  GCC_7 = "GCC_10.7.pkg"
+  GCC_6="GCC-10.6.pkg"
+  GCC_7="GCC_10.7.pkg"
 
   if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
     echo "version is 10.6"
@@ -88,6 +86,7 @@ config_git() {
 }
 
 OS=`lowercase \`uname\``
+GA_LIB="~/ga/lib"
 
 echo "creating a directory for ga tools at ~/ga/lib"
 mkdir -p $GA_LIB
@@ -95,8 +94,7 @@ mkdir -p $GA_LIB
 if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
 
-  install_mac_tools
-  exit
+  #install_mac_tools
 
   install_ruby
 
