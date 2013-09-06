@@ -101,13 +101,14 @@ if [[ $OS == "darwin" ]]; then
 
   echo "Installing Homebrew..."
   ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-  echo "Updating..."
-  brew update
-  echo "...done"
 
   echo "Installing git..."
   brew install git
   config_git
+  echo "...done"
+
+  echo "Updating Homebrew..."
+  brew update
   echo "...done"
 
   install_bundler
