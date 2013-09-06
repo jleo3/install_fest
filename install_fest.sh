@@ -35,6 +35,12 @@ install_mac_tools() {
   fi
 }
 
+update_rubygems() {
+  echo "Updating rubygems to latest version..."
+  gem update --system
+  echo "...done"
+}
+
 install_bundler() {
   echo "Installing bundler..."
   gem install bundler
@@ -118,6 +124,8 @@ if [[ $OS == "darwin" ]]; then
   brew update
   echo "...done"
 
+  update_rubygems
+
   install_bundler
 
   install_rails
@@ -146,6 +154,8 @@ elif [[ $OS == "linux" ]]; then
   sudo apt-get install -y build-essential git-core
   config_git
   echo "...done"
+
+  update_rubygems
 
   install_bundler
 
