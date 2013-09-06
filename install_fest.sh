@@ -14,7 +14,7 @@ install_mac_tools() {
   GCC_6="GCC-10.6.pkg"
   GCC_7="GCC_10.7.pkg"
 
-  cd /tmp/
+  cd /tmp
   if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
     echo "version is 10.6"
     curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
@@ -87,7 +87,7 @@ config_git() {
 }
 
 OS=`lowercase \`uname\``
-GA_LIB="~/ga/lib"
+GA_LIB="$HOME/ga/lib"
 
 echo "creating a directory for ga tools at ~/ga/lib"
 mkdir -p $GA_LIB
