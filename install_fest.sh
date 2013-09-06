@@ -35,6 +35,20 @@ install_mac_tools() {
   fi
 }
 
+install_homebrew() {
+  echo "Installing Homebrew..."
+  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+
+  echo "Installing git..."
+  brew install git
+  config_git
+  echo "...done"
+
+  echo "Updating Homebrew..."
+  brew update
+  echo "...done"
+}
+
 update_rubygems() {
   echo "Updating rubygems to latest version..."
   gem update --system
@@ -59,6 +73,26 @@ install_rails() {
   echo "Installing rails..."
   gem install -v 4.0.0 rails
   echo "...done"
+}
+
+install_sublime_text_mac() {
+  echo "Downloading and installing SublimeText"
+  cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.dmg
+  sudo hdiutil attach /tmp/Sublime\ Text\ 2.0.2.dmg
+  sudo installer /Volumes/Sublime\ Text\ 2.0.2/Sublime\ Text\ 2.0.2.pkg -target /Applications
+  sudo hdiutil detach /tmp/Sublime\ Text\ 2.0.2.dmg
+  echo "...done"
+
+  subl_to_path .bash_profile
+}
+  
+install_sublime_text_linux() {
+  echo "Downloading and installing SublimeText"
+  cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.tar.bz2
+  tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
+  echo "...done"
+
+  subl_to_path .bashrc
 }
 
 subl_to_path() {
@@ -109,38 +143,13 @@ if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
 
   install_mac_tools
-
+  install_homebrew
   install_ruby
-
-  echo "Installing Homebrew..."
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-
-  echo "Installing git..."
-  brew install git
-  config_git
-  echo "...done"
-
-  echo "Updating Homebrew..."
-  brew update
-  echo "...done"
-
   update_rubygems
-
   install_bundler
-
   install_rails
-
-  echo "Downloading and installing SublimeText"
-  cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.dmg
-  sudo hdiutil attach /tmp/Sublime\ Text\ 2.0.2.dmg
-  sudo installer /Volumes/Sublime\ Text\ 2.0.2/Sublime\ Text\ 2.0.2.pkg -target /Applications
-  sudo hdiutil detach /tmp/Sublime\ Text\ 2.0.2.dmg
-  echo "...done"
-
-  subl_to_path .bash_profile
-
+  install_sublime_text_mac
   check_install
-
 elif [[ $OS == "linux" ]]; then
   echo "Ah, classy operating system!"
 
@@ -156,17 +165,9 @@ elif [[ $OS == "linux" ]]; then
   echo "...done"
 
   update_rubygems
-
   install_bundler
-
   install_rails
-
-  echo "Downloading and installing SublimeText"
-  cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.tar.bz2
-  tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
-  echo "...done"
-
-  subl_to_path .bashrc
+  install_sublime_text_linux
 
   check_install
   echo "You are set for BEWD! Go forth and program!"
