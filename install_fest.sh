@@ -7,6 +7,13 @@ lowercase(){
 }
 
 install_mac_tools() {
+  # Do we have to install mac tools?
+  GCC=`gcc --version | grep -i 'not found' || true`
+  if [[ $? -eq 1 ]]; then
+    echo "gcc installed"
+    return
+  fi
+
   VERSION=`sw_vers -productVersion`
   SNOW_LEOPARD=10.6
   LION=10.7
