@@ -153,6 +153,10 @@ if [[ $OS == "darwin" ]]; then
 elif [[ $OS == "linux" ]]; then
   echo "Ah, classy operating system!"
 
+  echo "Updating system..."
+  sudo apt-get update
+  echo "...done"
+
   echo "Installing curl..."
   sudo apt-get install -y curl
   echo "...done"
