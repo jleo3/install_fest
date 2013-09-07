@@ -173,6 +173,7 @@ elif [[ $OS == "linux" ]]; then
   install_rails
   install_sublime_text_linux
 
+  source $HOME/.bashrc
   check_install
   echo "You are set for BEWD! Go forth and program!"
 fi
