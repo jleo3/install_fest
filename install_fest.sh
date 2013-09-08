@@ -8,30 +8,30 @@ lowercase(){
 
 install_mac_tools() {
   # Do we have to install mac tools?
-  GCC=`gcc --version | grep -i 'not found' || true`
+  XCODE=`xcode-select --version | grep -i 'not found' || true`
   if [[ $? -eq 1 ]]; then
-    echo "gcc installed"
-    return
-  fi
+    VERSION=`sw_vers -productVersion`
+    SNOW_LEOPARD=10.6
+    LION=10.7
+    MOUNTAIN_LION=10.8
+    GCC_6="GCC-10.6.pkg"
+    GCC_7="GCC-10.7-v2.pkg"
 
-  VERSION=`sw_vers -productVersion`
-  SNOW_LEOPARD=10.6
-  LION=10.7
-  MOUNTAIN_LION=10.8
-  GCC_6="GCC-10.6.pkg"
-  GCC_7="GCC-10.7-v2.pkg"
-
-  cd /tmp
-  if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
-    echo "version is 10.6"
-    curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
-    sudo installer -pkg /tmp/$GCC_6 -target $GA_LIB
-  elif [[ $VERSION == *"$LION"* || $VERSION == *"$MOUNTAIN_LION"* ]]; then
-    echo "version is 10.7 or 10.8"
-    curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -O
-    sudo installer -pkg /tmp/$GCC_7 -target $GA_LIB
+    cd /tmp
+    if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
+      echo "version is 10.6"
+      curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
+      sudo installer -pkg /tmp/$GCC_6 -target $GA_LIB
+    elif [[ $VERSION == *"$LION"* || $VERSION == *"$MOUNTAIN_LION"* ]]; then
+      echo "version is 10.7 or 10.8"
+      curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -O
+      sudo installer -pkg /tmp/$GCC_7 -target $GA_LIB
+    else
+      echo "could not find supported version for command line tools"
+    fi
   else
-    echo "could not find supported version for command line tools"
+    echo "xcode already installed"
+    return
   fi
 }
 
