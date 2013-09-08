@@ -143,7 +143,6 @@ if [[ $OS == "darwin" ]]; then
   echo "Mac OS X.. An aristocrat, eh?"
 
   install_mac_tools
-  install_homebrew
   install_ruby
   update_rubygems
   install_bundler
