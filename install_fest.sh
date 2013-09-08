@@ -19,7 +19,7 @@ install_mac_tools() {
   LION=10.7
   MOUNTAIN_LION=10.8
   GCC_6="GCC-10.6.pkg"
-  GCC_7="GCC_10.7.pkg"
+  GCC_7="GCC-10.7.pkg"
 
   cd /tmp
   if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
