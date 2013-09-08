@@ -79,7 +79,7 @@ install_sublime_text_mac() {
   echo "Downloading and installing SublimeText"
   cd /tmp && curl http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.dmg -O
   sudo hdiutil attach /tmp/Sublime\ Text\ 2.0.2.dmg
-  sudo installer /Volumes/Sublime\ Text\ 2.0.2/Sublime\ Text\ 2.0.2.pkg -target /Applications
+  sudo installer -pkg /Volumes/Sublime\ Text\ 2.0.2/Sublime\ Text\ 2.0.2.pkg -target /Applications
   sudo hdiutil detach /tmp/Sublime\ Text\ 2.0.2.dmg
   echo "...done"
 
@@ -89,7 +89,7 @@ install_sublime_text_mac() {
 install_sublime_text_linux() {
   echo "Downloading and installing SublimeText"
   cd /tmp && wget http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2.tar.bz2
-  tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C ~/ga/lib
+  tar xjvf /tmp/Sublime\ Text\ 2.0.2.tar.bz2 -C $HOME/ga/lib
   echo "...done"
 
   subl_to_path .bashrc
