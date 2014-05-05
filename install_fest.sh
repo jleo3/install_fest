@@ -19,7 +19,7 @@ install_mac_tools() {
 
 install_homebrew() {
   echo "Installing Homebrew..."
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  sudo ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 }
 
 update_homebrew() {
