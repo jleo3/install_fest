@@ -10,25 +10,7 @@ install_mac_tools() {
   # Do we have to install mac tools?
   XCODE=`xcode-select --version | grep -i 'not found' || true`
   if [[ $? -eq 1 ]]; then
-    VERSION=`sw_vers -productVersion`
-    SNOW_LEOPARD=10.6
-    LION=10.7
-    MOUNTAIN_LION=10.8
-    GCC_6="GCC-10.6.pkg"
-    GCC_7="GCC-10.7-v2.pkg"
-
-    cd /tmp
-    if [[ $VERSION == *"$SNOW_LEOPARD"* ]]; then
-      echo "version is 10.6"
-      curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.6.pkg -O
-      sudo installer -pkg /tmp/$GCC_6 -target $GA_LIB
-    elif [[ $VERSION == *"$LION"* || $VERSION == *"$MOUNTAIN_LION"* ]]; then
-      echo "version is 10.7 or 10.8"
-      curl -L https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -O
-      sudo installer -pkg /tmp/$GCC_7 -target $GA_LIB
-    else
-      echo "could not find supported version for command line tools"
-    fi
+    `xcode-select --install`
   else
     echo "xcode already installed"
     return
@@ -37,15 +19,19 @@ install_mac_tools() {
 
 install_homebrew() {
   echo "Installing Homebrew..."
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+}
 
+update_homebrew() {
+  echo "Updating Homebrew..."
+  brew update
+  echo "...done"
+}
+
+brew_install_git() {
   echo "Installing git..."
   brew install git
   config_git
-  echo "...done"
-
-  echo "Updating Homebrew..."
-  brew update
   echo "...done"
 }
 
@@ -65,13 +51,13 @@ install_ruby() {
   echo "Installing Ruby..."
   curl -L https://get.rvm.io | bash -s stable --ruby
   source $HOME/.rvm/scripts/rvm
-  rvm use 2.0.0 --default
+  rvm use 2.1.0 --default
   echo "...done"
 }
 
 install_rails() {
   echo "Installing rails..."
-  gem install -v 4.0.0 rails
+  gem install -v 4.0.4 rails
   echo "...done"
 }
 
@@ -145,6 +131,9 @@ if [[ $OS == "darwin" ]]; then
   install_mac_tools
   install_ruby
   update_rubygems
+  install_homebrew
+  update_homebrew
+  brew_install_git
   install_bundler
   install_rails
   install_sublime_text_mac
